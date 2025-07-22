@@ -1,6 +1,7 @@
 const inputImage = document.getElementById("input-img");
 const itemPool = document.querySelector(".item-pool");
 const tierContainers = document.querySelectorAll(".tier-items");
+const btnReset = document.getElementById("btn-reset");
 
 const classDragging = "dragging";
 
@@ -164,3 +165,11 @@ itemPool.addEventListener("dragleave", handleDragLeave);
 // from desktop
 itemPool.addEventListener("dragover", handleDragOverFromDesktop);
 itemPool.addEventListener("drop", handleDropFromDesktop);
+
+btnReset.addEventListener("click", () => {
+  document.querySelectorAll(".tier-item").forEach((item) => item.remove());
+
+  initialItems.forEach((item) => itemPool.appendChild(item));
+
+  tierContainers.forEach((c) => c.classList.remove(classDragging));
+});
