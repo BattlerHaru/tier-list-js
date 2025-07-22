@@ -18,10 +18,10 @@ A simple and interactive tier list built using pure HTML, CSS, and JavaScript. F
 - JavaScript (Vanilla)
 - Drag & Drop
 
-## 📸 Preview
-
-<!-- -![Tier List Screenshot](./screenshot.webp) -->
-
 ## 🚀 Getting Started
 
 Just clone and open `index.html` in your browser.
+
+## 📸 Preview
+
+-![Tier List Screenshot](./assets/screenshot.webp)

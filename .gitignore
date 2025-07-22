@@ -1,2 +1,5 @@
-# Ignore assets folder
-/assets/
+# Ignore everything inside assets
+/assets/*
+
+# Except the screenshot.webp
+!assets/screenshot.webp
