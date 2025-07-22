@@ -24,4 +24,4 @@ Just clone and open `index.html` in your browser.
 
 ## 📸 Preview
 
--![Tier List Screenshot](./assets/screenshot.webp)
+![Tier List Screenshot](./assets/screenshot.webp)
