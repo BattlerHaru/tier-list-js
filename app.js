@@ -1,12 +1,17 @@
 const inputImage = document.getElementById("input-img");
 const itemPool = document.querySelector(".item-pool");
+const tierContainers = document.querySelectorAll(".tier-items");
 
 const classDragging = "dragging";
 
-let initialItems = [];
 let sourceContainer = null;
-
 let draggedItem = null;
+
+let initialItems = [];
+
+let dropTarget = null;
+let dropContainer = null;
+let dropInsertBefore = null;
 
 /*       Create Items events    */
 const handleOnlyImageFiles = (files) => {
@@ -41,7 +46,7 @@ const createItem = (src) => {
   return item;
 };
 
-/*      drag & drop events    */
+/*   drag & drop Start and End events    */
 const handleDragStart = (event) => {
   draggedItem = event.target.closest(".tier-item");
   sourceContainer = draggedItem.parentNode;
@@ -51,6 +56,55 @@ const handleDragStart = (event) => {
 const handleDragEnd = (event) => {
   draggedItem = null;
   sourceContainer = null;
+};
+
+/*   drag & drop and leave with clean events  */
+const cleanupDrop = () => {
+  if (dropContainer) {
+    dropContainer.classList.remove(classDragging);
+  }
+  dropTarget = null;
+  dropContainer = null;
+  dropInsertBefore = null;
+};
+
+const handleDragLeave = (event) => {
+  const related = event.relatedTarget;
+
+  if (!event.currentTarget.contains(related)) {
+    cleanupDrop();
+  }
+};
+
+const handleDragOver = (event) => {
+  event.preventDefault();
+  const container = event.currentTarget;
+  const target = event.target.closest(".tier-item");
+
+  dropContainer = container;
+  container.classList.add(classDragging);
+
+  if (target && container.contains(target) && draggedItem !== target) {
+    const rect = target.getBoundingClientRect();
+    const isLeft = event.clientX < rect.left + rect.width / 2;
+    dropInsertBefore = isLeft ? target : target.nextSibling;
+  } else {
+    dropInsertBefore = null;
+  }
+};
+
+const handleDrop = (event) => {
+  event.preventDefault();
+
+  if (!draggedItem || !dropContainer) return;
+
+  if (dropInsertBefore) {
+    dropContainer.insertBefore(draggedItem, dropInsertBefore);
+  } else {
+    dropContainer.appendChild(draggedItem);
+  }
+
+  cleanupDrop();
 };
 
 // from desktop
@@ -95,6 +149,17 @@ inputImage.addEventListener("change", (event) => {
 
   useFilesToCreateItems(fileList);
 });
+
+tierContainers.forEach((row) => {
+  row.addEventListener("dragover", handleDragOver);
+  row.addEventListener("dragleave", handleDragLeave);
+  row.addEventListener("drop", handleDrop);
+});
+
+// pool to tiers
+itemPool.addEventListener("drop", handleDrop);
+itemPool.addEventListener("dragover", handleDragOver);
+itemPool.addEventListener("dragleave", handleDragLeave);
 
 // from desktop
 itemPool.addEventListener("dragover", handleDragOverFromDesktop);
