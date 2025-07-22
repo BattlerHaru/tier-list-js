@@ -3,7 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Tier List</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <img src="/assets/logo.png" alt="" />
+    </header>
+
+    <main class="container">
+      <section class="tier-container">
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #ff7e80"
+          >
+            S
+          </h3>
+          <div class="tier-items"></div>
+        </article>
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #ffc07f"
+          >
+            A
+          </h3>
+          <div class="tier-items drag-over"></div>
+        </article>
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #ffdf80"
+          >
+            B
+          </h3>
+          <div class="tier-items"></div>
+        </article>
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #fdff7f"
+          >
+            C
+          </h3>
+          <div class="tier-items"></div>
+        </article>
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #bfff7f"
+          >
+            D
+          </h3>
+          <div class="tier-items"></div>
+        </article>
+        <article class="tier-row">
+          <h3
+            class="tier-label"
+            contenteditable=""
+            style="--tier-bg-color: #ffdf80"
+          >
+            E
+          </h3>
+          <div class="tier-items"></div>
+        </article>
+      </section>
+
+      <section class="button-container">
+        <label type="button" id="btn-add-item" class="btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M9 12h6" />
+            <path d="M12 9v6" />
+          </svg>
+          <input type="file" multiple id="input-img" accept="image/*" hidden />
+        </label>
+
+        <button type="button" id="btn-reset" class="btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+          </svg>
+        </button>
+      </section>
+
+      <section class="items-container">
+        <div class="item-pool"></div>
+      </section>
+    </main>
+  </body>
 </html>
