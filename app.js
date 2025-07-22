@@ -1,13 +1,14 @@
 const inputImage = document.getElementById("input-img");
 const itemPool = document.querySelector(".item-pool");
 
+const classDragging = "dragging";
+
 let initialItems = [];
 let sourceContainer = null;
 
 let draggedItem = null;
 
 /*       Create Items events    */
-
 const handleOnlyImageFiles = (files) => {
   files = Array.from(files).filter((file) => file.type.startsWith("image/"));
   return files.length > 0 ? files : false;
@@ -52,6 +53,37 @@ const handleDragEnd = (event) => {
   sourceContainer = null;
 };
 
+// from desktop
+const handleDragOverFromDesktop = (event) => {
+  event.preventDefault();
+
+  const { currentTarget, dataTransfer } = event;
+
+  if (dataTransfer.types.includes("Files")) {
+    currentTarget.classList.add(classDragging);
+  }
+};
+
+const handleDropFromDesktop = (event) => {
+  event.preventDefault();
+
+  if (draggedItem) return;
+
+  const { dataTransfer, currentTarget } = event;
+
+  if (!dataTransfer || !dataTransfer.files || dataTransfer.files.length === 0) {
+    return;
+  }
+
+  const fileList = handleOnlyImageFiles(dataTransfer.files);
+
+  if (!fileList) return;
+
+  useFilesToCreateItems(fileList);
+
+  currentTarget.classList.remove(classDragging);
+};
+
 inputImage.addEventListener("change", (event) => {
   const { files } = event.target;
 
@@ -63,3 +95,7 @@ inputImage.addEventListener("change", (event) => {
 
   useFilesToCreateItems(fileList);
 });
+
+// from desktop
+itemPool.addEventListener("dragover", handleDragOverFromDesktop);
+itemPool.addEventListener("drop", handleDropFromDesktop);
